@@ -6,7 +6,7 @@ $(document).ready(() => {
   const socket = io.connect('http://localhost:3000');
 
   socket.on('new_message', ({sender, message}) => {
-    chat.append(`<p>${sender} said: ${message}</p>`)
+    chat.append(`<p><b>${sender} said:</b> ${message}</p>`)
   });
 
   $('#sign_in').click(event => {
@@ -21,6 +21,8 @@ $(document).ready(() => {
     event.preventDefault();
 
     socket.emit('send_message', {message: message.val()})
+
+    message.val('');
   });
 
 
