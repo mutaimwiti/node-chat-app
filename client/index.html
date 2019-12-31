@@ -5,17 +5,33 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-<div class="container" style="margin-top: 10px">
-  <div class="row">
+<div class="container mt-4">
+  <div class="row" id="login_section">
     <div class="col-md-6 offset-md-3">
-      <form>
-        <div class="form-group">
+      <form class="form-inline" id="login_form">
+        <div class="mr-2">Offline</div>
+        <div class="mr-2">
           <input type="text" class="form-control" id="username" placeholder="Username">
-          <small class="form-text text-muted">This is optional</small>
         </div>
+        <button type="submit" class="btn btn-primary" id="sign_in">Sign in</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row mb-3" id="logout_section">
+    <div class="col-md-6 offset-md-3">
+      <form id="logout_form">
         <div class="form-group">
-          <button type="submit" class="btn btn-primary" id="sign_in">Sign in</button>
+          Online - <span id="user"></span>
+          <button type="submit" class="btn btn-primary float-right" id="sign_out">Logout</button>
         </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row" id="chat_section">
+    <div class="col-md-6 offset-md-3">
+      <form id="message_form">
         <div class="form-group">
           <textarea class="form-control" id="message" placeholder="Message"></textarea>
         </div>
@@ -24,8 +40,6 @@
         </div>
       </form>
     </div>
-  </div>
-  <div class="row">
     <div class="col-md-6 offset-md-3" id="chat"></div>
   </div>
 </div>

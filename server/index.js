@@ -9,14 +9,13 @@ const server = http.createServer(app);
 const io = socket(server);
 
 io.on('connection', socket => {
-  console.log('new user connected');
-
   // set default username
   socket.username = 'anonymous';
 
   socket.on('sign_in', ({username}) => {
     if (username) {
       socket.username = username;
+      socket.emit('sign_in_success', {username});
     }
   });
 
