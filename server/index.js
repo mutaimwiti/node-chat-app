@@ -24,6 +24,12 @@ io.on('connection', socket => {
 
     io.sockets.emit('new_message', {sender: username, message})
   });
+
+  socket.on('typing', () => {
+    const {username} = socket;
+
+    socket.broadcast.emit('typing', {username});
+  });
 });
 
 server.listen(3000, () => {

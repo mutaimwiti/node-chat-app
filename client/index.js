@@ -11,6 +11,8 @@ $(document).ready(() => {
   const message = $('#message');
 
   // captions and displays
+  const typingUser = $('#typing_user');
+  const typing = $('#typing');
   const chat = $('#chat');
   const user = $('#user');
 
@@ -22,6 +24,7 @@ $(document).ready(() => {
   // hide sections requiring sign in
   logoutSection.hide();
   chatSection.hide();
+  typing.hide();
 
   const signIn = (username) => {
     socket.emit('sign_in', {username});
@@ -43,6 +46,12 @@ $(document).ready(() => {
 
   socket.on('new_message', ({sender, message}) => {
     chat.append(`<p><b>${sender}</b> : ${message}</p>`);
+  });
+
+  socket.on('typing', ({username}) => {
+    typingUser.html(username);
+    typing.show();
+    setTimeout(() => typing.hide(), 2000);
   });
 
   signInBtn.click(event => {
@@ -74,5 +83,9 @@ $(document).ready(() => {
     loginSection.show();
     logoutSection.hide();
     user.html(null);
+  });
+
+  message.change(() => {
+    socket.emit('typing');
   });
 });
