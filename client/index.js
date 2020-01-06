@@ -51,7 +51,7 @@ $(document).ready(() => {
   socket.on('typing', ({username}) => {
     typingUser.html(username);
     typing.show();
-    setTimeout(() => typing.hide(), 2000);
+    setTimeout(() => typing.hide(), 500);
   });
 
   signInBtn.click(event => {
@@ -85,7 +85,20 @@ $(document).ready(() => {
     user.html(null);
   });
 
-  message.change(() => {
-    socket.emit('typing');
-  });
+  message.change(
+    debounce(() => socket.emit('typing'),
+      250)
+  );
 });
+
+const debounce = function (fn, delay) {
+  let timeout;
+  return function () {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      fn.apply(context, args)
+    }, delay)
+  }
+};
