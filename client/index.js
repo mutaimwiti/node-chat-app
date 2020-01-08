@@ -51,7 +51,7 @@ $(document).ready(() => {
   socket.on('typing', ({username}) => {
     typingUser.html(username);
     typing.show();
-    setTimeout(() => typing.hide(), 500);
+    setTimeout(() => typing.hide(), 700);
   });
 
   signInBtn.click(event => {
@@ -85,7 +85,7 @@ $(document).ready(() => {
     user.html(null);
   });
 
-  message.change(
+  message.on('change keyup paste',
     debounce(() => socket.emit('typing'),
       250)
   );
